@@ -15,9 +15,10 @@ export class Index extends Component {
         if (!this.resizeScene) return;
         this.resizeScene = false;
         const designResolution = view.getDesignResolutionSize()
-        const designScale = designResolution.width / designResolution.height;
-        const screenScale = screen.windowSize.width / screen.windowSize.height;
-        view.setResolutionPolicy(screenScale < designScale ? ResolutionPolicy.FIXED_WIDTH : ResolutionPolicy.FIXED_HEIGHT);
+        // const designScale = designResolution.width / designResolution.height;
+        // const screenScale = screen.windowSize.width / screen.windowSize.height;
+        view.setDesignResolutionSize(designResolution.width,screen.windowSize.height,ResolutionPolicy.FIXED_HEIGHT);
+        // view.setResolutionPolicy(screenScale < designScale ? ResolutionPolicy.FIXED_WIDTH : ResolutionPolicy.FIXED_HEIGHT);
     }
 
 }
