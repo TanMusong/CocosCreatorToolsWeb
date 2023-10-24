@@ -94,7 +94,6 @@ export class Bezier extends Component {
         this.isNeedUpdate = true;
 
         this.startBezierAnimation();
-
     }
 
     protected update(_dt: number): void {
@@ -248,21 +247,26 @@ export class Bezier extends Component {
         };
 
 
-        const easing = "smooth"
         bezierTween.parallel(
-            tween().to(this.animationDuration, { x: this.endPoint.x }, { progress: progressX, easing, onUpdate: () => this.animationNode.setPosition(bezierPoint) }),
-            tween().to(this.animationDuration, { y: this.endPoint.y }, { progress: progressY, easing, onUpdate: () => this.animationNode.setPosition(bezierPoint) }),
+            tween().to(this.animationDuration, { x: this.endPoint.x }, { progress: progressX, onUpdate: () => this.animationNode.setPosition(bezierPoint) }),
+            tween().to(this.animationDuration, { y: this.endPoint.y }, { progress: progressY, onUpdate: () => this.animationNode.setPosition(bezierPoint) }),
         ).repeatForever().start();
     }
 
+    // copy from cc.bezier
     private bezier(start: number, control1: number, control2: number, end: number, ratio: number): number {
-        const t1 = 1 - ratio;
-        return t1 * (t1 * (start + (control1 * 3 - start) * ratio) + control2 * 3 * ratio * ratio) + end * ratio * ratio * ratio;
+        return (1 - ratio) * ((1 - ratio) * (start + (control1 * 3 - start) * ratio) + control2 * 3 * ratio * ratio) + end * ratio * ratio * ratio;
     }
 
     private quadratic(start: number, control: number, end: number, ratio: number): number {
         const t1 = 1 - ratio;
         return t1 * t1 * start + 2 * ratio * t1 * control + ratio * ratio * end;
+    }
+
+    private genCode(): void {
+        const tween3: string = `//Bezier参数\nconst startPointX = ${this.startPoint.x}, startPointY = ${this.startPoint.y};\nconst endPointX = ${this.endPoint.x}, endPointY = ${this.endPoint.y};\nconst controlPoint1X = ${this.controlPoint1.x}, controlPoint1Y = ${this.controlPoint1.y};\nconst controlPoint2X = ${this.controlPoint2.x}, controlPoint2Y = ${this.controlPoint2.y};\n\n//动画参数\nconst bezierNode:cc.Node = xxx;\nconst bezierTweenTag: number = xxx;\nconst animationDuration: number = xxx;\n\nconst progressX = (start: number, end: number, _current: number, ratio: number) =>\n    (1 - ratio) * ((1 - ratio) * (start + (controlPoint1X * 3 - start) * ratio) + controlPoint2X * 3 * ratio * ratio) + end * ratio * ratio * ratio;\nconst progressY = (start: number, end: number, _current: number, ratio: number) =>\n    (1 - ratio) * ((1 - ratio) * (start + (controlPoint1Y * 3 - start) * ratio) + controlPoint2Y * 3 * ratio * ratio) + end * ratio * ratio * ratio;\nconst bezierPosition: Vec3 = new Vec3(startPointX, startPointY);\nconst bezierTween: Tween<Vec3> = new Tween(bezierPosition);\nbezierTween.tag(bezierTweenTag);\nbezierTween.parallel(\n    tween().to(animationDuration, { x: endPointX }, { progress: progressX, onUpdate: () => bezierNode.setPosition(bezierPosition) }),\n    tween().to(animationDuration, { y: endPointY }, { progress: progressY, onUpdate: () => bezierNode.setPosition(bezierPosition) }),\n);\nbezierTween.start();\n`;
+        const tween2: string = ``;
+        console.log(tween3);
     }
 }
 
