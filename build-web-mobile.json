@@ -1,0 +1,69 @@
+{
+  "name": "CocosCreatorUtilsWeb",
+  "server": "",
+  "platform": "web-mobile",
+  "buildPath": "project://build",
+  "debug": false,
+  "md5Cache": false,
+  "skipCompressTexture": false,
+  "sourceMaps": false,
+  "overwriteProjectSettings": {
+    "includeModules": {
+      "gfx-webgl2": "inherit-project-setting",
+      "physics": "inherit-project-setting",
+      "physics-2d": "inherit-project-setting"
+    },
+    "macroConfig": {
+      "cleanupImageCache": "inherit-project-setting"
+    }
+  },
+  "nativeCodeBundleMode": "both",
+  "polyfills": {
+    "asyncFunctions": true
+  },
+  "experimentalEraseModules": true,
+  "startSceneAssetBundle": false,
+  "bundleConfigs": [],
+  "useBuiltinServer": false,
+  "mainBundleIsRemote": false,
+  "mainBundleCompressionType": "merge_dep",
+  "useSplashScreen": false,
+  "bundleCommonChunk": false,
+  "packAutoAtlas": true,
+  "startScene": "81b5a67e-25a5-4bb5-8050-9b091a4cc863",
+  "outputName": "web-mobile",
+  "taskName": "web-mobile",
+  "scenes": [
+    {
+      "url": "db://assets/bezier/bezier.scene",
+      "uuid": "81b5a67e-25a5-4bb5-8050-9b091a4cc863"
+    },
+    {
+      "url": "db://assets/scene/index.scene",
+      "uuid": "64951919-2e20-4cac-a811-5eb0f102584d"
+    }
+  ],
+  "wasmCompressionMode": false,
+  "packages": {
+    "adsense-h5g-plugin": {
+      "enableAdsense": false,
+      "enableTestAd": false,
+      "__version__": "1.0.1",
+      "AFPHostPropertyCode": "ca-host-pub-5396158963872751",
+      "AFPHostDomain": "douyougame.com",
+      "otherAFPHostPropertyCode": "",
+      "otherAFPDomain": ""
+    },
+    "cocos-service": {
+      "configID": "98ebf3",
+      "services": []
+    },
+    "web-mobile": {
+      "orientation": "auto",
+      "embedWebDebugger": false,
+      "__version__": "1.0.1"
+    }
+  },
+  "__version__": "1.3.8",
+  "buildMode": "normal"
+}
