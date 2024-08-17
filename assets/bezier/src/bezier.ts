@@ -1,4 +1,4 @@
-import { Component, EditBox, EventTouch, Graphics, IVec2Like, Node, _decorator, Color, Toggle, Tween, tween, Vec3 } from 'cc';
+import { Component, EditBox, EventTouch, Graphics, IVec2Like, Node, _decorator, Color, Toggle, Tween, tween, Vec3, Label } from 'cc';
 const { ccclass, property } = _decorator;
 
 @ccclass('bezier')
@@ -138,6 +138,10 @@ export class Bezier extends Component {
         node.on(Node.EventType.TOUCH_START, () => node.on(Node.EventType.TOUCH_MOVE, this.onPointTouchMove, this));
         node.on(Node.EventType.TOUCH_CANCEL, () => node.off(Node.EventType.TOUCH_MOVE, this.onPointTouchMove, this));
         node.on(Node.EventType.TOUCH_END, () => node.off(Node.EventType.TOUCH_MOVE, this.onPointTouchMove, this));
+
+        node.on(Node.EventType.MOUSE_ENTER, () => node.getChildByName('Tip').active = true, this);
+        node.on(Node.EventType.MOUSE_LEAVE, () => node.getChildByName('Tip').active = false, this);
+        node.getChildByName('Tip').active = false;
     }
 
     private setupPointEditBox(editBox: EditBox[]): void {
@@ -201,6 +205,7 @@ export class Bezier extends Component {
     }
 
     private updateCubicBezierUI(): void {
+        this.controlPoint1Node.getComponentInChildren(Label).string = this.isCubicBezier ? '控制点1' : '控制点';
         this.controlPoint2Node.active = this.isCubicBezier;
         this.controlPoint2UI.active = this.isCubicBezier;
     }
